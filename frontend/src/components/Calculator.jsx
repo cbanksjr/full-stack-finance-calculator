@@ -1,5 +1,6 @@
 /** @format */
 
+import ButtonComponent from "./ButtonComponent";
 import { useState } from "react";
 
 const Calculator = () => {
@@ -58,11 +59,9 @@ const Calculator = () => {
             className="border-4 rounded-md p-2 text-center"
           />
 
-          <div className="pt-6">
-            <button className="rounded-md px-8 py-3 text-center font-medium bg-green-600 text-white border-2 border-green-500 hover:bg-green-800">
-              Submit
-            </button>
-          </div>
+          <ButtonComponent
+            name="Submit"
+           />
 
           <div className="pt-6 space-y-2">
             <p>
