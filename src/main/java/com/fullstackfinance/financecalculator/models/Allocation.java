@@ -16,10 +16,12 @@ public class Allocation {
     protected double amount;
     protected double total;
     protected double deducted;
+    protected double remaining;
 
-    public Allocation(double amount, double total, double deducted){
+    public Allocation(double amount, double total, double deducted, double remaining){
         this.amount = amount;
         this.total = total;
         this.deducted = deducted;
+        this.remaining = remaining;
     }
 }
