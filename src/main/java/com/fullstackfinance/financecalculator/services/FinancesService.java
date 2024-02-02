@@ -1,8 +1,10 @@
 package com.fullstackfinance.financecalculator.services;
 
+import com.fullstackfinance.financecalculator.dtos.FinancesDTO;
+
 public interface FinancesService {
-    double addedAmount();
-    double total();
-    double deductedAmount();
-    double remainingAmount();
+    FinancesDTO addedAmount();
+    FinancesDTO total();
+    FinancesDTO deductedAmount();
+    FinancesDTO remainingAmount();
 }
