@@ -2,12 +2,12 @@ package com.fullstackfinance.financecalculator.dtos;
 
 import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
+@Data
 public class FinancesDTO {
-    protected double amount;
-    protected double total;
-    protected double deducted;
-    protected double remaining;
+    private double amount;
+    private double total;
+    private double deducted;
+    private double remaining;
 
 }

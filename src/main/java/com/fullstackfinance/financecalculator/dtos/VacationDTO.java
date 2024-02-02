@@ -2,10 +2,10 @@ package com.fullstackfinance.financecalculator.dtos;
 
 import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class VacationDTO {
-    protected double amount;
-    protected double total;
-    protected double deducted;
+    private double amount;
+    private double total;
+    private double deducted;
+    private double remaining;
 }
