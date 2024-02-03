@@ -6,6 +6,10 @@ import java.time.LocalDate;
 
 import com.fullstackfinance.financecalculator.dtos.AccountDTO;
 import com.fullstackfinance.financecalculator.models.Account;
+import com.fullstackfinance.financecalculator.models.Finances;
+import com.fullstackfinance.financecalculator.models.Investing;
+import com.fullstackfinance.financecalculator.models.Savings;
+import com.fullstackfinance.financecalculator.models.Vacation;
 import com.fullstackfinance.financecalculator.repositories.AccountRepository;
 
 import lombok.AllArgsConstructor;
@@ -37,16 +41,37 @@ public class AccountServiceImpl implements AccountService{
         }
     }
 
-    @Override
-    public AccountDTO getAmountAfterDeductions() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    
 
     @Override
-    public AccountDTO setAmountRemaining() {
-        // TODO Auto-generated method stub
-        return null;
+    public AccountDTO getAmountAfterDeductions() {
+        Finances finances = new Finances();
+        Investing investing = new Investing();
+        Savings savings = new Savings();
+        Vacation vacation = new Vacation();
+        Account account = new Account();
+        try {
+            double totalDeductions = finances.getAmount() - investing.getAmount() - savings.getAmount() - vacation.getAmount();
+            account.setDeducted(totalDeductions);
+            return modelMapper.map(account, AccountDTO.class);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return modelMapper.map(account, AccountDTO.class);
+        }
+    }
+
+
+
+    @Override
+    public AccountDTO setAmountRemaining(String setAmountToDeductFrom, String getAmountAfterDeductions) {
+        Account account = new Account();
+        try {
+            account.setAmount(Double.parseDouble(setAmountToDeductFrom) - Double.parseDouble(getAmountAfterDeductions));
+            return modelMapper.map(account, AccountDTO.class);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
     }
     
 }
