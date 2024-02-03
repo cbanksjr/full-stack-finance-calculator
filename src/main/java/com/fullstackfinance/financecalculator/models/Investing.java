@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Investing extends Allocation {
 
-    public Investing(double amount, double total, double deducted, double remaining){
-        super(amount, total, deducted, remaining);
+    public Investing(double amount, double total, double deducted, double remaining, double percent){
+        super(amount, total, deducted, remaining, percent);
     }
 }
