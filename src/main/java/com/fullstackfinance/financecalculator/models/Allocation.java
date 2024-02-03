@@ -17,11 +17,13 @@ public class Allocation {
     protected double total;
     protected double deducted;
     protected double remaining;
+    protected double percent;
 
-    public Allocation(double amount, double total, double deducted, double remaining){
+    public Allocation(double amount, double total, double deducted, double remaining, double percent){
         this.amount = amount;
         this.total = total;
         this.deducted = deducted;
         this.remaining = remaining;
+        this.percent = percent;
     }
 }

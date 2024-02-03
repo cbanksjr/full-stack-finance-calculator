@@ -1,15 +1,22 @@
 package com.fullstackfinance.financecalculator.models;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDate;
 
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
-public class Account extends Allocation{
-    
-    public Account(double amount, double total, double deducted, double remaining){
-        super(amount, total, deducted, remaining);
-    }
-
+@Data
+public class Account {
+    @Id
+    @GeneratedValue
+    private long id;
+    private LocalDate date;
+    private double amount;
+    private double deducted;
+    private double remaining;
     
 }
