@@ -12,18 +12,15 @@ public class Allocation {
     @Id
     @GeneratedValue
     private long id;
-    
-    protected double amount;
-    protected double total;
-    protected double deducted;
-    protected double remaining;
-    protected double percent;
+    private double amount;
+    private double deducted;
+    private double remaining;
 
-    public Allocation(double amount, double total, double deducted, double remaining, double percent){
+    
+
+    public Allocation(double amount, double deducted, double remaining){
         this.amount = amount;
-        this.total = total;
         this.deducted = deducted;
         this.remaining = remaining;
-        this.percent = percent;
     }
 }
