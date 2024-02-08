@@ -4,9 +4,9 @@ import lombok.*;
 
 
 @Data
-public class AccountDTO {
+public class ExpensesDTO {
     private double amount;
     private double deducted;
     private double remaining;
-    private double percent;
+
 }

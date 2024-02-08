@@ -1,13 +1,10 @@
 package com.fullstackfinance.financecalculator.dtos;
 
-import lombok.*;
-
+import lombok.Data;
 
 @Data
-public class FinancesDTO {
+public class CalculatorDTO {
     private double amount;
-    private double total;
     private double deducted;
-    private double remaining;
-
+    private double percent;
 }
