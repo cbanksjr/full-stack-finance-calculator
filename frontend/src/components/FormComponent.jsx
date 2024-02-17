@@ -1,35 +1,26 @@
 /** @format */
 import { useState } from "react";
 import ButtonComponent from "./ButtonComponent";
+import axios from "axios";
 
 
 const FormComponent = () => {
   const [amount, setAmount] = useState("");
   const [percent, setPercent] = useState("");
-  const [result, setResult] = useState("0.00");
-  const [remaining, setRemaining] = useState("0.00");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (amount < 0 || isNaN(amount)) {
-      setAmount(0);
-      setPercent(0);
-    }
-
-    if (percent < 0 || isNaN(percent)) {
-      setPercent(0);
-      setAmount(0);
-    }
-
-    setResult(amount * (percent / 100));
-
-    setRemaining(amount - amount * (percent / 100));
+    const data = {amount, percent}
+    await axios.post("http://localhost:8080/api/calculator", data)
+        .then((response) => response.data)
+        .catch((error) => console.log(error));
+  setAmount("")
+  setPercent("")
   };
-
   return (
-    <section className="flex flex-col items-center mt-6">
+    <section className="flex flex-col items-center mt-6 col-start-2">
       <form
+         htmlFor="calculator"
         onSubmit={handleSubmit}
         className="flex flex-col items-center space-y-3 bg-white border-2 rounded-lg p-16"
       >
@@ -57,28 +48,6 @@ const FormComponent = () => {
 
         <ButtonComponent name="Submit" />
 
-        <div className="pt-6 space-y-2">
-          <p>
-            <span className="text-red-500 text-lg font-medium">Allocate: </span>
-            <span className="text-center text-lg ml-2 text-red-500 font-medium">
-              {result.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
-            </span>
-          </p>
-          <p>
-            <span className="text-green-700 text-lg font-medium">
-              Remaining:
-            </span>
-            <span className="text-center text-lg ml-2 text-green-700 font-medium">
-              {remaining.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
-            </span>
-          </p>
-        </div>
       </form>
     </section>
   );

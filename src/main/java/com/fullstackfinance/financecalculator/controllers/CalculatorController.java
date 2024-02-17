@@ -10,12 +10,12 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/calculator")
+@RequestMapping("/api")
 public class CalculatorController {
 
     private CalculatorService calculatorService;
 
-    @PostMapping()
+    @PostMapping("/calculator")
     public ResponseEntity<?> calculate(@RequestBody CalculatorDTO calculatorDTO){
         try {
             CalculatorDTO result = calculatorService.calculate(calculatorDTO.getAmount(), calculatorDTO.getPercent());

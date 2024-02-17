@@ -31,6 +31,7 @@ public class CalculatorServiceImpl implements CalculatorService {
             calculator.setRemaining(remaining);
             calculatorRepository.save(calculator);
             return modelMapper.map(calculator, CalculatorDTO.class);
+
         } catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
             return modelMapper.map(calculator, CalculatorDTO.class);

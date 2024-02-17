@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import lombok.*;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Calculator {
@@ -17,4 +16,12 @@ public class Calculator {
     private double deducted;
     private double percent;
     private double remaining;
+
+
+    public Calculator(double amount, double deducted, double percent, double remaining) {
+        this.amount = amount;
+        this.deducted = deducted;
+        this.percent = percent;
+        this.remaining = remaining;
+    }
 }

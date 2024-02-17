@@ -10,12 +10,12 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/account")
+@RequestMapping("/api/account")
 public class AccountController {
     
     private AccountService accountService;
 
-    @PostMapping("/setAmount/{id}")
+    @GetMapping("/setAmount/{id}")
     public ResponseEntity<?> saveAmount(@PathVariable long id){
         try {
             AccountDTO result = accountService.amountToAllocateFrom(id);
