@@ -1,12 +1,13 @@
 /** @format */
 
 import Calculator from "./components/Calculator";
+import {Fragment} from "react";
 
-function App() {
+const App = () => {
   return (
-    <div>
+    <Fragment>
       <Calculator />
-    </div>
+    </Fragment>
   );
 }
 
