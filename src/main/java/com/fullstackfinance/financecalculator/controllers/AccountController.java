@@ -1,5 +1,7 @@
 package com.fullstackfinance.financecalculator.controllers;
 
+import java.util.ArrayList;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +20,7 @@ public class AccountController {
     @GetMapping("/setAmount/{id}")
     public ResponseEntity<?> saveAmount(@PathVariable long id){
         try {
-            AccountDTO result = accountService.amountToAllocateFrom(id);
+            ArrayList<AccountDTO> result = accountService.amountToAllocateFrom(id);
 
             return ResponseEntity.ok(result);
         } catch (Exception e) {

@@ -3,7 +3,7 @@ package com.fullstackfinance.financecalculator.services;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.*;
 
 import com.fullstackfinance.financecalculator.dtos.AccountDTO;
 import com.fullstackfinance.financecalculator.models.Account;
@@ -22,21 +22,27 @@ public class AccountServiceImpl implements AccountService{
 
 
     @Override
-    public AccountDTO amountToAllocateFrom(long id) {
-        Account account = new Account();
+    public ArrayList<AccountDTO> amountToAllocateFrom(long id) {
+       ArrayList<AccountDTO> accountList = new ArrayList<>();
         try {
             Optional<Calculator> calculations = calculatorRepository.findById(id);
             if(calculations.isPresent()){
                double amount = calculations.get().getAmount();
+               double deducted = calculations.get().getDeducted();
+               double remaining = calculations.get().getRemaining();
+
+               Account account = new Account();
                account.setAmount(amount);
+               account.setDeducted(deducted);
+               account.setRemaining(remaining);
                accountRepository.save(account);
-               return modelMapper.map(account, AccountDTO.class);
+               AccountDTO accountDTO = modelMapper.map(account, AccountDTO.class);
+               accountList.add(accountDTO);
             }
         } catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
-            return modelMapper.map(account, AccountDTO.class);
         }
-        return null;
+        return accountList;
     }
 
     
