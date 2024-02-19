@@ -9,14 +9,14 @@ const AccountComponent = () => {
   useEffect(() => {
     const fetchAccountData = async () => {
       await axios
-        .get("http://localhost:8080/api/account/setAmount/1")
+        .get(`http://localhost:8080/api/account/setAmount/1`)
         .then((response) => {
           console.log(response.data);
           setAccount(response.data);
         })
         .catch((error) => console.error(error));
     };
-    return () => fetchAccountData();
+     return async() => await fetchAccountData();
   }, []);
 
   return (
@@ -28,6 +28,7 @@ const AccountComponent = () => {
             <p>Amount: {element.amount}</p>
             <p>Deducted: {element.deducted}</p>
             <p>Remaining: {element.remaining}</p>
+              <p>Percent: {element.percent}</p>
           </div>
         ))}
       </div>
