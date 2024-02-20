@@ -1,6 +1,6 @@
 /** @format */
 import { useState } from "react";
-import ButtonComponent from "./ButtonComponent";
+import SubmitButtonComponent from "./SubmitButtonComponent.jsx";
 import axios from "axios";
 
 
@@ -46,7 +46,7 @@ const FormComponent = () => {
           className="border-4 rounded-md p-2 text-center"
         />
 
-        <ButtonComponent name="Submit" />
+        <SubmitButtonComponent name="Submit" />
 
       </form>
     </section>
