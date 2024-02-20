@@ -22,8 +22,8 @@ public class AccountServiceImpl implements AccountService{
 
 
     @Override
-    public ArrayList<AccountDTO> amountToAllocateFrom(long id) {
-       ArrayList<AccountDTO> accountList = new ArrayList<>();
+    public List<AccountDTO> amountToAllocateFrom(long id) {
+       List<AccountDTO> accountList = new ArrayList<>();
         try {
             Optional<Calculator> calculations = calculatorRepository.findById(id);
             if(calculations.isPresent()){
@@ -47,6 +47,22 @@ public class AccountServiceImpl implements AccountService{
         }
         return accountList;
     }
+    
 
+    @Override
+    public List<AccountDTO> iterateIds(){
+        List<AccountDTO> accountDTOList = new ArrayList<>();
+        try {
+            Iterable<Account> accounts = accountRepository.findAll();
+
+            for(Account account : accounts){
+                AccountDTO accountDTO = modelMapper.map(account, AccountDTO.class);
+                accountDTOList.add(accountDTO);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return accountDTOList;
+    }
     
 }

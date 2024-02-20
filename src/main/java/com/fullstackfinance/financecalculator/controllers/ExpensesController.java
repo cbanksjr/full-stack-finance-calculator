@@ -1,5 +1,7 @@
 package com.fullstackfinance.financecalculator.controllers;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,14 +13,14 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/expenses")
-public class ExpenseController {
+public class ExpensesController {
 
     private ExpensesService expensesService;
 
     @PostMapping("/setAllocation/{id}")
-    public ResponseEntity<?> financeAllocation(@PathVariable long id){
+    public ResponseEntity<?> financeAllocation(@PathVariable long id, @RequestBody ExpensesDTO expensesDTO){
         try {
-            ExpensesDTO result = expensesService.financeAllocation(id);
+            List<ExpensesDTO> result = expensesService.expenseAllocation(id, expensesDTO.getPercent());
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

@@ -1,7 +1,9 @@
 package com.fullstackfinance.financecalculator.services;
 
+import java.util.List;
+
 import com.fullstackfinance.financecalculator.dtos.ExpensesDTO;
 
 public interface ExpensesService {
-    ExpensesDTO financeAllocation(long id);
+    List<ExpensesDTO> expenseAllocation(long id, double percent);
 }
