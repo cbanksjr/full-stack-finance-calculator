@@ -5,4 +5,5 @@ import java.util.ArrayList;
 
 public interface AccountService {
     ArrayList<AccountDTO> amountToAllocateFrom(long id);
+
 }

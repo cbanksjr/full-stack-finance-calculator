@@ -16,19 +16,14 @@ public class CalculatorServiceImpl implements CalculatorService {
     private ModelMapper modelMapper;
 
     @Override
-    public CalculatorDTO calculate(double amount, double percent) {
+    public CalculatorDTO addToAccount(double amount) {
         Calculator calculator = new Calculator();
 
         try {
-            if (amount <= 0 || percent < 0 || percent > 100) {
+            if (amount <= 0) {
                 throw new IllegalArgumentException();
             }
             calculator.setAmount(amount);
-            double percentage = (percent / 100);
-            calculator.setPercent(percentage);
-            calculator.setDeducted(amount * percentage);
-            double remaining = calculator.getAmount() - calculator.getDeducted();
-            calculator.setRemaining(remaining);
             calculatorRepository.save(calculator);
             return modelMapper.map(calculator, CalculatorDTO.class);
 
@@ -36,7 +31,22 @@ public class CalculatorServiceImpl implements CalculatorService {
             System.err.println(e.getMessage());
             return modelMapper.map(calculator, CalculatorDTO.class);
         }
-
     }
-
+    @Override
+    public CalculatorDTO multiplyAccountFromPercent(double amount, double percent) {
+        Calculator calculator = new Calculator();
+        try {
+          double getAmount = calculatorRepository.findByAmount(amount);
+          calculator.setPercent(percent);
+          double amountToDeduct = getAmount * percent;
+          calculator.setDeducted(amountToDeduct);
+          double remaining = getAmount - amountToDeduct;
+          calculator.setRemaining(remaining);
+          calculatorRepository.save(calculator);
+          return modelMapper.map(calculator, CalculatorDTO.class);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return modelMapper.map(calculator, CalculatorDTO.class);
+        }
+    }
 }
