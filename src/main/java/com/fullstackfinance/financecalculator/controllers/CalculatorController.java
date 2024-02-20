@@ -25,14 +25,14 @@ public class CalculatorController {
         }
     }
 
-    @PostMapping("/calculatorDeduct")
-    public ResponseEntity<?> deduct(@RequestBody CalculatorDTO calculatorDTO){
-        try {
-            CalculatorDTO result = calculatorService.multiplyAccountFromPercent(calculatorDTO.getAmount(), calculatorDTO.getPercent());
-            return ResponseEntity.ok(result);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
+    // @PostMapping("/calculatorDeduct")
+    // public ResponseEntity<?> deduct(@RequestBody CalculatorDTO calculatorDTO){
+    //     try {
+    //         CalculatorDTO result = calculatorService.addToAccount(calculatorDTO.getAmount());
+    //         return ResponseEntity.ok(result);
+    //     } catch (Exception e) {
+    //         return ResponseEntity.badRequest().body(e.getMessage());
+    //     }
+    // }
 
 }

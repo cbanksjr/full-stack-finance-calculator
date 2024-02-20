@@ -15,12 +15,14 @@ public class Allocation {
     private double amount;
     private double deducted;
     private double remaining;
+    private double percent;
 
     
 
-    public Allocation(double amount, double deducted, double remaining){
+    public Allocation(double amount, double deducted, double remaining, double percent){
         this.amount = amount;
         this.deducted = deducted;
         this.remaining = remaining;
+        this.percent = percent;
     }
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Vacation extends Allocation {
     
-    public Vacation(double amount, double deducted, double remaining){
-        super(amount, deducted, remaining);
+    public Vacation(double amount, double deducted, double remaining, double percent){
+        super(amount, deducted, remaining, percent);
     }
 }

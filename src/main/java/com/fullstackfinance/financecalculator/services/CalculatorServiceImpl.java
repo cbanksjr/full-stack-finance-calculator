@@ -32,21 +32,4 @@ public class CalculatorServiceImpl implements CalculatorService {
             return modelMapper.map(calculator, CalculatorDTO.class);
         }
     }
-    @Override
-    public CalculatorDTO multiplyAccountFromPercent(double amount, double percent) {
-        Calculator calculator = new Calculator();
-        try {
-          double getAmount = calculatorRepository.findByAmount(amount);
-          calculator.setPercent(percent);
-          double amountToDeduct = getAmount * percent;
-          calculator.setDeducted(amountToDeduct);
-          double remaining = getAmount - amountToDeduct;
-          calculator.setRemaining(remaining);
-          calculatorRepository.save(calculator);
-          return modelMapper.map(calculator, CalculatorDTO.class);
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            return modelMapper.map(calculator, CalculatorDTO.class);
-        }
-    }
 }

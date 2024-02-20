@@ -1,9 +1,11 @@
 package com.fullstackfinance.financecalculator.services;
 
 import com.fullstackfinance.financecalculator.dtos.AccountDTO;
-import java.util.ArrayList;
+import java.util.List;
 
 public interface AccountService {
-    ArrayList<AccountDTO> amountToAllocateFrom(long id);
+    List<AccountDTO> amountToAllocateFrom(long id);
+
+    List<AccountDTO> iterateIds();
 
 }
