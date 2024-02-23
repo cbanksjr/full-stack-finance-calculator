@@ -1,9 +1,10 @@
-package com.fullstackfinance.financecalculator.services;
+package com.fullstackfinance.financecalculator.services.ServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.fullstackfinance.financecalculator.services.ExpensesService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class ExpensesServiceImpl implements ExpensesService{
+public class ExpensesServiceImpl implements ExpensesService {
 
     private AccountRepository accountRepository;
     private ExpensesRepository expensesRepository;

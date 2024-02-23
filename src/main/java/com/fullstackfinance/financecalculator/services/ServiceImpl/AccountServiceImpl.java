@@ -1,5 +1,6 @@
-package com.fullstackfinance.financecalculator.services;
+package com.fullstackfinance.financecalculator.services.ServiceImpl;
 
+import com.fullstackfinance.financecalculator.services.AccountService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service
-public class AccountServiceImpl implements AccountService{
+public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
     private CalculatorRepository calculatorRepository;
     private ModelMapper modelMapper;
@@ -28,15 +29,9 @@ public class AccountServiceImpl implements AccountService{
             Optional<Calculator> calculations = calculatorRepository.findById(id);
             if(calculations.isPresent()){
                double amount = calculations.get().getAmount();
-               double deducted = calculations.get().getDeducted();
-               double remaining = calculations.get().getRemaining();
-               double percent = calculations.get().getPercent();
 
                Account account = new Account();
                account.setAmount(amount);
-               account.setDeducted(deducted);
-               account.setRemaining(remaining);
-               account.setPercent(percent);
 
                accountRepository.save(account);
                AccountDTO accountDTO = modelMapper.map(account, AccountDTO.class);

@@ -31,7 +31,7 @@ public class AccountController {
     }
 
     @PostMapping("/updateAmount")
-    public ResponseEntity<?> postMethodName() {
+    public ResponseEntity<?> updateAmount() {
         try {
             List<AccountDTO> result = accountService.iterateIds();
             return ResponseEntity.ok(result);

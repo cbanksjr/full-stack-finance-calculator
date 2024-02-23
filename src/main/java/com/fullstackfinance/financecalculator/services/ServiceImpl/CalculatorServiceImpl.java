@@ -1,5 +1,6 @@
-package com.fullstackfinance.financecalculator.services;
+package com.fullstackfinance.financecalculator.services.ServiceImpl;
 
+import com.fullstackfinance.financecalculator.services.CalculatorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
