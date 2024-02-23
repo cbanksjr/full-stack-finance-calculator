@@ -3,9 +3,8 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
 
-const AccountComponent = () => {
-    const [account, setAccount] = useState([]);
-
+const Account = () => {
+    const [account, setAccount] = useState([])
     const fetchAccountData = async () => {
         await axios
             .get("http://localhost:8080/api/account/setAmount/1")
@@ -16,20 +15,19 @@ const AccountComponent = () => {
             .catch((error) => console.error(error));
     };
 
+
+
     useEffect(() => {
-        return async () => await fetchAccountData();
+         fetchAccountData()
     }, []);
 
     return (
-        <section className="flex flex-col justify-center col-start-1 row-start-2 text-black rounded-lg bg-white">
-            <div className="flex flex-col justify-center items-center">
+        <section className="flex flex-col items-center col-start-2 row-start-2 text-black">
+            <div className="flex flex-col items-center place-content-center bg-white mt-6 p-16 rounded-3xl">
                 <h1 className="text-xl font-semibold mb-4">Account</h1>
                 {account.map((element, index) => (
                     <div key={element.id || index} className="text-black">
-                        <p>Amount: {element.amount}</p>
-                        <p>Deducted: {element.deducted}</p>
-                        <p>Remaining: {element.remaining}</p>
-                        <p>Percent: {element.percent}</p>
+                        <p>Amount: ${element.amount}</p>
                     </div>
                 ))}
             </div>
@@ -37,4 +35,4 @@ const AccountComponent = () => {
     );
 };
 
-export default AccountComponent;
+export default Account;

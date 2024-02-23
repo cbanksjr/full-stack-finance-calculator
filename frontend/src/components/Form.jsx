@@ -1,24 +1,25 @@
 /** @format */
-import { useState } from "react";
-import SubmitButtonComponent from "./SubmitButtonComponent.jsx";
+import {useState} from "react";
+import SubmitButton from "./SubmitButton.jsx";
 import axios from "axios";
 
 
-const FormComponent = () => {
+const Form = () => {
   const [amount, setAmount] = useState("");
-  const [percent, setPercent] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {amount, percent}
+    const data = {amount}
     await axios.post("http://localhost:8080/api/calculator", data)
-        .then((response) => response.data)
+        .then((response) => setAmount(response.data))
         .catch((error) => console.log(error));
-  setAmount("")
-  setPercent("")
+    setAmount("")
   };
+
+
+
   return (
-    <section className="flex flex-col items-center mt-6 col-start-2">
+    <section className="flex flex-col items-center mt-6 col-start-1">
       <form
          htmlFor="calculator"
         onSubmit={handleSubmit}
@@ -35,22 +36,22 @@ const FormComponent = () => {
           className="border-4 rounded-md p-2 text-center"
         />
 
-        <label htmlFor="percent" className="text-2xl font-semibold">
-          Percent:{" "}
-        </label>
-        <input
-          type="number"
-          placeholder="Whole number"
-          value={percent}
-          onChange={(e) => setPercent(e.target.value)}
-          className="border-4 rounded-md p-2 text-center"
-        />
+        {/*<label htmlFor="percent" className="text-2xl font-semibold">*/}
+        {/*  Percent:{" "}*/}
+        {/*</label>*/}
+        {/*<input*/}
+        {/*  type="number"*/}
+        {/*  placeholder="Whole number"*/}
+        {/*  value={percent}*/}
+        {/*  onChange={(e) => setPercent(e.target.value)}*/}
+        {/*  className="border-4 rounded-md p-2 text-center"*/}
+        {/*/>*/}
 
-        <SubmitButtonComponent name="Submit" />
+        <SubmitButton name="Submit" />
 
       </form>
     </section>
   );
 };
 
-export default FormComponent;
+export default Form;
