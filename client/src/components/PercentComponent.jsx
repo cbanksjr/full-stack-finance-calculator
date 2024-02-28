@@ -14,7 +14,7 @@ const Percent = () => {
                            placeholder="Percent"
                             className="border-4 rounded-md p-2 text-center"/>
                     <div className="flex space-x-3 mt-4">
-                        <ExpenseButton name="Expenses"/>
+                        <ExpenseButton  name="Expenses"/>
                         <InvestingButton name="Investments"/>
                         <VacationButton name="Vacation"/>
                         <SavingsButton name="Savings"/>
