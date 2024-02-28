@@ -6,14 +6,16 @@ import axios from "axios";
 
 const Form = () => {
   const [amount, setAmount] = useState("");
+  const [percent, setPercent] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {amount}
+    const data = {amount, percent}
     await axios.post("http://localhost:8000/account", data)
         .then((response) => setAmount(response.data))
         .catch((err) => console.error(err));
     setAmount("")
+    setPercent("")
   };
 
 
@@ -36,16 +38,16 @@ const Form = () => {
           className="border-4 rounded-md p-2 text-center"
         />
 
-        {/*<label htmlFor="percent" className="text-2xl font-semibold">*/}
-        {/*  Percent:{" "}*/}
-        {/*</label>*/}
-        {/*<input*/}
-        {/*  type="number"*/}
-        {/*  placeholder="Whole number"*/}
-        {/*  value={percent}*/}
-        {/*  onChange={(e) => setPercent(e.target.value)}*/}
-        {/*  className="border-4 rounded-md p-2 text-center"*/}
-        {/*/>*/}
+        <label htmlFor="percent" className="text-2xl font-semibold">
+         Percent:{" "}
+        </label>
+        <input
+         type="number"
+         placeholder="Whole number"
+         value={percent}
+         onChange={(e) => setPercent(e.target.value)}
+         className="border-4 rounded-md p-2 text-center"
+        />
 
         <SubmitButton name="Submit" />
 

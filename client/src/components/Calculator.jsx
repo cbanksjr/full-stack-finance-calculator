@@ -1,8 +1,8 @@
 /** @format */
 
-import Form from "./Form.jsx";
-import Account from "./Account.jsx";
-import Percent from "./Percent.jsx";
+import Form from "./FormComponent.jsx";
+import Account from "./AccountComponent.jsx";
+import Percent from "./PercentComponent.jsx";
 
 const Calculator = () => {
   return (
