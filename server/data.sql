@@ -1,13 +1,13 @@
 CREATE DATABASE finance_calculator
 
 CREATE TABLE account (
-    amount REAL PRIMARY KEY,
-    percent_deducted REAL,
-    deducted REAL,
-    remaining REAL
+    amount FLOAT(25) PRIMARY KEY,
+    percent_deducted FLOAT(25),
+    deducted FLOAT(25),
+    remaining FLOAT(25)
 );
 
 
 CREATE TABLE expenses (
-    expense_allocation REAL PRIMARY KEY
+    expense_allocation FLOAT(25) PRIMARY KEY
 );
