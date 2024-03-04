@@ -3,15 +3,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+application.properties
 
-
-# dotenv environment variable files
-env.properties
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
 
 ### STS ###
 .apt_generated
