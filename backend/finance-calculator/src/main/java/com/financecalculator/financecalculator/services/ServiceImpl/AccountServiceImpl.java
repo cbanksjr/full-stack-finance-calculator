@@ -21,38 +21,32 @@ public class AccountServiceImpl implements AccountService {
 
     //GET AMOUNT FROM ALLOCATION CHOICE REPOSITORY TO SHOW AMOUNT IN REACT ACCOUNT COMPONENT 
     
+
+    /*
+     * Subtracts remainining amounts from account repository
+     */
     @Override
-    public List<AccountDTO> amountToAllocateFrom(long id) {
-       List<AccountDTO> accountList = new ArrayList<>();
-        try {
-            Optional<Account> calculations = accountRepository.findById(id);
-            if(calculations.isPresent()){
-               double amount = calculations.get().getAmount();
-
-               Account account = new Account();
-               account.setAmount(amount);
-
-               accountRepository.save(account);
-               AccountDTO accountDTO = modelMapper.map(account, AccountDTO.class);
-               accountList.add(accountDTO);
-            }
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        return accountList;
-    }
-    
-
-    @Override
-    public List<AccountDTO> iterateIds(){
+    public List<AccountDTO> retrieveAmounts(){
         List<AccountDTO> accountDTOList = new ArrayList<>();
         try {
             Iterable<Account> accounts = accountRepository.findAll();
 
-            for(Account account : accounts){
+            //Converts Account to AccountDTO
+            accounts.forEach(account -> {
                 AccountDTO accountDTO = modelMapper.map(account, AccountDTO.class);
                 accountDTOList.add(accountDTO);
-            }
+            });
+
+            //Taking finding remaining amount and setting remaining
+            accountDTOList.forEach(accountDTO -> {
+                double previousValue = 0.0;
+                double remaining = accountDTO.getRemaining();
+                double difference = remaining - previousValue;
+                accountDTO.setRemaining(difference);
+                previousValue = remaining;
+                System.out.println(previousValue);
+            });
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

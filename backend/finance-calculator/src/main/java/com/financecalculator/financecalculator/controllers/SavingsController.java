@@ -3,6 +3,7 @@ package com.financecalculator.financecalculator.controllers;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,14 +23,16 @@ public class SavingsController {
     @Autowired
     private SavingsService savingsService;
 
+    private final static Logger logger = LoggerFactory.getLogger(SavingsController.class);
+
     @PostMapping("/allocateToSavings")
     public ResponseEntity<List<SavingsDTO>> savingsAllocation(@RequestBody SavingsDTO savingsDTO){
         try {
             List<SavingsDTO> result = savingsService.moneyInSavings(savingsDTO.getInitialAmount(), savingsDTO.getPercent());
             return ResponseEntity.ok(result);
         } catch (Exception e) {
-            SavingsDTO errorDTO = new SavingsDTO();
-            return ResponseEntity.badRequest().body(Collections.singletonList(errorDTO));
+            logger.error("Failed to post allocations: {}", e.getMessage(), e);
+            return ResponseEntity.badRequest().body(Collections.emptyList());
         }
     } 
 }

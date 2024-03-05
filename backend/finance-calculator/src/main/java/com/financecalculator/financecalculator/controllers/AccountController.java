@@ -1,7 +1,10 @@
 package com.financecalculator.financecalculator.controllers;
 
 
+import java.util.Collections;
 import java.util.List;
+
+import org.slf4j.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import com.financecalculator.financecalculator.dtos.AccountDTO;
 import com.financecalculator.financecalculator.services.AccountService;
 
-import org.springframework.web.bind.annotation.PostMapping;
 
 
 @RestController
@@ -19,27 +21,17 @@ public class AccountController {
     
     @Autowired
     private AccountService accountService;
+    
+    private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 
-    //ADD POST MAPPING TO POST DATA RECEIVED FROM USER
-
-    @GetMapping("/setAmount/{id}")
-    public ResponseEntity<?> saveAmount(@PathVariable long id){
+    @GetMapping("/updateAmount")
+    public ResponseEntity<List<AccountDTO>> updateAmount() {
         try {
-            List<AccountDTO> result = accountService.amountToAllocateFrom(id);
-
+            List<AccountDTO> result = accountService.retrieveAmounts();
             return ResponseEntity.ok(result);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    @PostMapping("/updateAmount")
-    public ResponseEntity<?> updateAmount() {
-        try {
-            List<AccountDTO> result = accountService.iterateIds();
-            return ResponseEntity.ok(result);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            logger.error("Failed to update amount: {}", e.getMessage(), e);
+            return ResponseEntity.badRequest().body(Collections.emptyList());
         }
     }
     
