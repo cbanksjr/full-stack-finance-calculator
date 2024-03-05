@@ -19,8 +19,7 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
     private ModelMapper modelMapper;
 
-    //MAKE "CALCULATOR" METHOD AND FACILITATE EVERYTHING FROM THIS SERVICE
-
+    //GET AMOUNT FROM ALLOCATION CHOICE REPOSITORY TO SHOW AMOUNT IN REACT ACCOUNT COMPONENT 
     
     @Override
     public List<AccountDTO> amountToAllocateFrom(long id) {

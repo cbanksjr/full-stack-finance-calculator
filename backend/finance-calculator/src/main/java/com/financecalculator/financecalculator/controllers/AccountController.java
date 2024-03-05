@@ -3,21 +3,21 @@ package com.financecalculator.financecalculator.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.financecalculator.financecalculator.dtos.AccountDTO;
 import com.financecalculator.financecalculator.services.AccountService;
 
-import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api/account")
 public class AccountController {
     
+    @Autowired
     private AccountService accountService;
 
     //ADD POST MAPPING TO POST DATA RECEIVED FROM USER
