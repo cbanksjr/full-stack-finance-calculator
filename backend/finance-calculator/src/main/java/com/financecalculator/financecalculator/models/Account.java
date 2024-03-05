@@ -3,6 +3,7 @@ package com.financecalculator.financecalculator.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+
 @Entity
 @NoArgsConstructor
 @Data
