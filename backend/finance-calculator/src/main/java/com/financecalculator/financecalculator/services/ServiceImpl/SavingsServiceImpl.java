@@ -2,10 +2,12 @@ package com.financecalculator.financecalculator.services.ServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.*;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.financecalculator.financecalculator.controllers.SavingsController;
 import com.financecalculator.financecalculator.dtos.SavingsDTO;
 import com.financecalculator.financecalculator.models.Account;
 import com.financecalculator.financecalculator.models.Savings;
@@ -23,8 +25,9 @@ public class SavingsServiceImpl implements SavingsService {
     private SavingsRepository savingsRepository;
     private AccountRepository accountRepository;
 
+    private final static Logger logger = Logger.getLogger(SavingsController.class.getName());
 
-    //IMPLEMENT A WAY TO ADD ALLOCATED AMOUNTS FOR EACH INPUT
+
 
     /*
      * Calculates an amount to add to savings allocation and saves it to savings respository and saves amount and remaining to account repository
@@ -39,7 +42,8 @@ public class SavingsServiceImpl implements SavingsService {
             double inputAmount = amount, inputPercent = percent;
 
             if(inputAmount <= 0 || inputPercent <= 0){
-                throw new IllegalArgumentException("Input must be greater than 0");
+                logger.log(Level.WARNING, "Input must be greater than 0!");
+                // throw new IllegalArgumentException("Input must be greater than 0");
             }
 
             //Calculation
