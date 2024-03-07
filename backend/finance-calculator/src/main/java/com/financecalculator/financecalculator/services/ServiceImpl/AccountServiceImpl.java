@@ -19,7 +19,7 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
     private ModelMapper modelMapper;
 
-    //GET AMOUNT FROM ALLOCATION CHOICE REPOSITORY TO SHOW AMOUNT IN REACT ACCOUNT COMPONENT 
+    //GET AMOUNT FROM ALLOCATION OF CHOICE REPOSITORY TO SHOW AMOUNT IN REACT ACCOUNT COMPONENT 
     
 
     /*
@@ -44,7 +44,6 @@ public class AccountServiceImpl implements AccountService {
                 double difference = remaining - previousValue;
                 accountDTO.setRemaining(difference);
                 previousValue = remaining;
-                System.out.println(previousValue);
             });
 
         } catch (Exception e) {
