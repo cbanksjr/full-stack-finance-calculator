@@ -4,9 +4,10 @@ import lombok.Data;
 
 @Data
 public class SavingsDTO{
-    double initialAmount; 
-    double allocatedAmount; 
-    double totalAllocation;
-    double percent; 
-    double amountRemaining;
+   private double initialAmount; 
+   private double allocatedAmount; 
+   private double totalAllocation;
+   private double allocationTakenOut;
+   private double totalAllocationTakenOut;
+   private double percent; 
 }
