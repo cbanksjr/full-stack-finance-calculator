@@ -1,26 +1,24 @@
-import React, {useState} from 'react'
-import SubmitButton from './SubmitButton'
+import React, {useState} from 'react';
 import Account from './AccountComponent';
 import ExpenseButton from './ExpenseButton';
+import AllocationButton from './SavingsButton';
 import axios from 'axios';
 
 const Form = () => {
-    const [amount, setAmount] = useState("");
+    const [initialAmount, setInitialAmount] = useState("");
     const [percent, setPercent] = useState("")
-    const [submitted, setSubmitted] = useState(false)
     
-      const handleSubmit = async (e) => {
+      const handleSavingsSubmit = async (e) => {
         e.preventDefault();
-        const data = {amount, percent};
+        const data = {initialAmount, percent};
         await axios
-          .post("http://localhost:8000/account", data)
+          .post("http://localhost:8080/api/savings/allocateToSavings", data)
           .then((response) => {
-            setAmount(response.data)
+            setInitialAmount(response.data)
             setPercent(response.data)
-            setSubmitted(true)
           })
           .catch((err) => console.error(err));
-       setAmount("");
+       setInitialAmount("");
        setPercent("");
       };
     
@@ -28,7 +26,6 @@ const Form = () => {
   return (
       <>
         <form
-        onSubmit={handleSubmit}
           htmlFor="calculator"
           className="flex flex-col items-center space-y-3 p-12"
         >
@@ -38,8 +35,8 @@ const Form = () => {
           <input
             type="number"
             placeholder="Amount"
-            value={amount}
-            onChange={e => setAmount(e.target.value)}
+            value={initialAmount}
+            onChange={e => setInitialAmount(e.target.value)}
             className="border-4 rounded-md p-2 text-center"
           />
 
@@ -53,13 +50,13 @@ const Form = () => {
             onChange={e => setPercent(e.target.value)}
             className="border-4 rounded-md p-2 text-center"
           />
-          <div className='flex space-x-4'>
-          <SubmitButton onClick={handleSubmit}/>
-          <ExpenseButton />
+          <div className='flex space-x-4 pt-4'>
+          <AllocationButton name="Savings" handleSubmit={handleSavingsSubmit}/>
+          <ExpenseButton/>
           </div>
         </form>
         {/* CREATE LOGIC TO DISPLAY OTHER BUTTONS BASED ON CLICK OF THAT BUTTON???? */}
-      {submitted && <Account/>}
+      <Account/>
 
   </>
     

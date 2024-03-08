@@ -5,7 +5,7 @@ import Form from "./Form";
 const Allocation = () => {
   return (
     <div className="p-48">
-      <div className="flex flex-col items-center bg-white border-2 rounded-lg p-16">
+      <div className="flex flex-col items-center bg-white border-2 rounded-lg p-16 shadow-lg shadow-gray-500">
         <h1 className="text-xl font-semibold">
           Where would you like to allocate your deduction?
         </h1>
