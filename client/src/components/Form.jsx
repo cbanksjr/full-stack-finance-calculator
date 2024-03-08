@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import Account from './AccountComponent';
+import Account from './Account';
 import ExpenseButton from './ExpenseButton';
-import AllocationButton from './SavingsButton';
+import SavingsButton from './SavingsButton';
 import axios from 'axios';
 
 const Form = () => {
@@ -51,11 +51,11 @@ const Form = () => {
             className="border-4 rounded-md p-2 text-center"
           />
           <div className='flex space-x-4 pt-4'>
-          <AllocationButton name="Savings" handleSubmit={handleSavingsSubmit}/>
           <ExpenseButton/>
+          <SavingsButton name="Savings" handleSubmit={handleSavingsSubmit}/>
           </div>
         </form>
-        {/* CREATE LOGIC TO DISPLAY OTHER BUTTONS BASED ON CLICK OF THAT BUTTON???? */}
+
       <Account/>
 
   </>
