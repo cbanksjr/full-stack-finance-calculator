@@ -38,9 +38,9 @@ public class SavingsController {
     }
     
     @PutMapping("/updateSavings/{id}")
-    public ResponseEntity<SavingsDTO> savingsUpdate(@RequestBody Savings savings, @PathVariable long id){
+    public ResponseEntity<List<SavingsDTO>> savingsUpdate(@RequestBody Savings savings, @PathVariable long id){
         try {
-            SavingsDTO result = savingsService.moneyOutOfSavings(savings.getAllocationTakenOut(), id);
+            List<SavingsDTO> result = savingsService.moneyOutOfSavings(savings.getAllocationTakenOut(), id);
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);

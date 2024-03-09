@@ -92,8 +92,8 @@ public class SavingsServiceImpl implements SavingsService {
      */
 
     @Override
-    public SavingsDTO moneyOutOfSavings(double amount, long allocationId) {
-        SavingsDTO savingsUpdate = new SavingsDTO();
+    public List<SavingsDTO> moneyOutOfSavings(double amount, long allocationId) {
+        List<SavingsDTO> savingsUpdateList = new ArrayList<>();
         try {
             Savings targetAllocation = null;
             Iterable<Savings> moneyInTheSavings = savingsRepository.findAll();
@@ -118,7 +118,8 @@ public class SavingsServiceImpl implements SavingsService {
 
                 savingsRepository.save(targetAllocation);
 
-                savingsUpdate = modelMapper.map(targetAllocation, SavingsDTO.class);
+                SavingsDTO savingsUpdate = modelMapper.map(targetAllocation, SavingsDTO.class);
+                savingsUpdateList.add(savingsUpdate);
             } else {
                 System.err.println("Allocation not found");
             }
@@ -126,6 +127,8 @@ public class SavingsServiceImpl implements SavingsService {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        return savingsUpdate;
+        return savingsUpdateList;
     }
+
+    //MAKE GET REQUEST TO GET ALL SAVINGS
 }
