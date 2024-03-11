@@ -55,7 +55,9 @@ const Form = () => {
           className="border-4 rounded-md p-2 text-center"
         />
 
-        <div className="flex space-x-4 pt-4">
+        <h1 className="font-semibold text-lg pt-6">Select where you would like to allocate your deduction:</h1>
+
+        <div className="flex space-x-4 pt-2">
           <ExpenseButton />
           <SavingsButton name="Savings" handleSubmit={handleSavingsSubmit} />
         </div>
