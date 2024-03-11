@@ -7,5 +7,8 @@ import com.financecalculator.financecalculator.dtos.SavingsDTO;
 public interface SavingsService {
     List<SavingsDTO> moneyInSavings(double amount, double percent);
 
+    List<SavingsDTO> getAllSavings();
+
     List<SavingsDTO> moneyOutOfSavings(double amount, long allocationId);
+
 }

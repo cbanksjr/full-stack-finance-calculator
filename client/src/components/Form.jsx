@@ -13,6 +13,8 @@ const Form = () => {
   const [percent, setPercent] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
+  const [error, setError] = useState("");
+
   const handleSavingsSubmit = async (e) => {
     e.preventDefault();
     const data = { initialAmount, percent };
@@ -23,7 +25,12 @@ const Form = () => {
         setPercent(response.data);
         setSubmitted(true);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+      });
+      if(initialAmount === "" || initialAmount <= 0 || percent === "" || percent <= 0){
+        setError("Please enter a valid amount and percent");
+      }
     setInitialAmount("");
     setPercent("");
   };
@@ -54,6 +61,8 @@ const Form = () => {
           onChange={(e) => setPercent(e.target.value)}
           className="border-4 rounded-md p-2 text-center"
         />
+
+        {error && <p className="text-red-500">{error}</p>}
 
         <h1 className="font-semibold text-lg pt-6">Select where you would like to allocate your deduction:</h1>
 

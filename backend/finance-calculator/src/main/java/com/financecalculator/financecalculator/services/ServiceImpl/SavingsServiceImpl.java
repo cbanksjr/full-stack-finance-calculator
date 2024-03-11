@@ -14,7 +14,6 @@ import com.financecalculator.financecalculator.repositories.SavingsRepository;
 import com.financecalculator.financecalculator.services.SavingsService;
 
 import lombok.AllArgsConstructor;
-
 @AllArgsConstructor
 @Service
 public class SavingsServiceImpl implements SavingsService {
@@ -22,6 +21,9 @@ public class SavingsServiceImpl implements SavingsService {
     private ModelMapper modelMapper;
     private SavingsRepository savingsRepository;
     private AccountRepository accountRepository;
+
+
+
 
     /*
      * Calculates an amount to add to savings allocation and saves it to savings
@@ -37,7 +39,7 @@ public class SavingsServiceImpl implements SavingsService {
             double inputAmount = amount, inputPercent = percent;
 
             if (inputAmount <= 0 || inputPercent <= 0) {
-                throw new IllegalArgumentException("Input must be greater than 0");
+                throw new IllegalArgumentException("Amount and percent must be greater than 0");
             }
 
             // Calculation
@@ -86,6 +88,39 @@ public class SavingsServiceImpl implements SavingsService {
 
         return savingsDTOList;
     }
+    
+
+
+
+    /*
+     * Retrieves all savings from the savings repository
+     */
+    @Override
+    public List<SavingsDTO> getAllSavings() {
+        //Create ArrayList to store all savings
+        List<SavingsDTO> allSavingsList = new ArrayList<>();
+
+        try {
+            //Retrieve all savings from the repository and save them to allSavingsList
+            Iterable<Savings> allSavings = savingsRepository.findAll();
+            for (Savings savings : allSavings) {
+                SavingsDTO savingsDTO = modelMapper.map(savings, SavingsDTO.class);
+                allSavingsList.add(savingsDTO);
+            }
+
+            //Retrieve the last savings from the list and save it to result
+            SavingsDTO savingsInfo = allSavingsList.size() > 1 ? allSavingsList.get(allSavingsList.size() - 1) : allSavingsList.get(0);
+            List<SavingsDTO> result = new ArrayList<>();
+            result.add(savingsInfo);
+            return result;
+                
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return allSavingsList;
+    }
+
+
 
     /*
      * Finds the amount in the savings and subtract the amount that is input
@@ -93,8 +128,11 @@ public class SavingsServiceImpl implements SavingsService {
 
     @Override
     public List<SavingsDTO> moneyOutOfSavings(double amount, long allocationId) {
+        //Create ArrayList to store updated savings
         List<SavingsDTO> savingsUpdateList = new ArrayList<>();
+
         try {
+            //Retrieve the allocation from the repository
             Savings targetAllocation = null;
             Iterable<Savings> moneyInTheSavings = savingsRepository.findAll();
             allocationId = 0;
@@ -107,6 +145,7 @@ public class SavingsServiceImpl implements SavingsService {
                 }
             }
 
+            //If the allocation is found, subtract the amount from the allocation and save it to the repository
             if (targetAllocation != null) {
                 double allocationTakenOutAmount = amount;
                 double newTotalInTheSavings = targetAllocation.getTotalAllocation() - allocationTakenOutAmount;
@@ -130,5 +169,6 @@ public class SavingsServiceImpl implements SavingsService {
         return savingsUpdateList;
     }
 
-    //MAKE GET REQUEST TO GET ALL SAVINGS
+
+    
 }
