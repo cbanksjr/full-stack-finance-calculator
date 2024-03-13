@@ -51,22 +51,24 @@ public class SavingsServiceImpl implements SavingsService {
 
             // Sum of previous allocations
             double totalPreviousAllocations = 0.0;
+            double takenOut = 0.0;
+            double totalTakenOut = 0.0;
             for (Savings savings : previousAllocations) {
-                totalPreviousAllocations += savings.getAllocatedAmount();
-            }
-            ;
+                totalPreviousAllocations += previousAllocations.iterator().next().getAllocatedAmount();
+                takenOut += previousAllocations.iterator().next().getAllocationTakenOut();
+                totalTakenOut += previousAllocations.iterator().next().getTotalAllocationTakenOut();
+            };
 
             // Add the allocated amounts
             double newAllocation = totalPreviousAllocations + amountAllocation;
-
             // New savings object to set calculated amounts
             Savings savings = new Savings();
             savings.setInitialAmount(inputAmount);
             savings.setPercent(inputPercent);
             savings.setAllocatedAmount(amountAllocation);
             savings.setTotalAllocation(newAllocation);
-            // savings.setAmountRemaining(remaining);
-
+            savings.setAllocationTakenOut(takenOut);
+            savings.setTotalAllocationTakenOut(totalTakenOut);
             // Put savings object into savings repository
             savingsRepository.save(savings);
             // Turn savings model into savingsDTO model
@@ -80,6 +82,7 @@ public class SavingsServiceImpl implements SavingsService {
             account.setAmount(inputAmount);
             account.setRemaining(remaining);
             account.setDeducted(amountAllocation);
+
             accountRepository.save(account);
 
         } catch (Exception e) {
@@ -107,12 +110,12 @@ public class SavingsServiceImpl implements SavingsService {
                 SavingsDTO savingsDTO = modelMapper.map(savings, SavingsDTO.class);
                 allSavingsList.add(savingsDTO);
             }
-
             //Retrieve the last savings from the list and save it to result
             SavingsDTO savingsInfo = allSavingsList.size() > 1 ? allSavingsList.get(allSavingsList.size() - 1) : allSavingsList.get(0);
             List<SavingsDTO> result = new ArrayList<>();
             result.add(savingsInfo);
             return result;
+
                 
         } catch (Exception e) {
             System.err.println(e.getMessage());

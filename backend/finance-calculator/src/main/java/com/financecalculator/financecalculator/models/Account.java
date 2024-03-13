@@ -14,12 +14,10 @@ public class Account {
     private double amount;
     private double deducted;
     private double remaining;
-    // private double percent;
 
     public Account(double amount, double deducted, double remaining) {
         this.amount = amount;
         this.deducted = deducted;
         this.remaining = remaining;
-        // this.percent = percent;
     }
 }
