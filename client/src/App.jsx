@@ -1,20 +1,17 @@
 /** @format */
-import { useState } from "react";
-import Allocation from "./components/Allocation.jsx";
+import Form from "./components/Form.jsx";
+import SubtractAllocationInput from "./components/SubtractAllocationInput.jsx";
 
-const App = () => {
-
-  
+const App = ({showAccount}) => {
 
   return (
-    <main className="flex flex-col">
-      <h1 className="text-center mt-28 text-4xl font-bold text-white">
-        Finance Calculator
-      </h1>
-        <Allocation/>
+    <main>
+    <h1 className="text-white text-center text-6xl font-bold mb-20">Finance Calculator</h1>
+      <div className="flex flex-col items-center bg-white border-2 rounded-lg p-12 shadow-lg shadow-gray-500">
+        <Form />
+      </div>
     </main>
-    
   );
-}
+};
 
 export default App;

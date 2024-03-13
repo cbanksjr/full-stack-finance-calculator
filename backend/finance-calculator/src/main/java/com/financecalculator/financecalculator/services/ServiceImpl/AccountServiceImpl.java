@@ -46,6 +46,12 @@ public class AccountServiceImpl implements AccountService {
                 previousValue = remaining;
             });
 
+            //Return the last accountDTO in the list
+            AccountDTO accountDTO = accountDTOList.size() >= 1 ? accountDTOList.get(accountDTOList.size() - 1) : accountDTOList.get(0);
+            List<AccountDTO> result = new ArrayList<>();
+            result.add(accountDTO);
+            return result;
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
