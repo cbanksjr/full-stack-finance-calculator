@@ -1,5 +1,7 @@
 package com.financecalculator.financecalculator.services.ServiceImpl;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,20 @@ public class SavingsServiceImpl implements SavingsService {
     private SavingsRepository savingsRepository;
     private AccountRepository accountRepository;
 
+    /**
+     * BigDecimal to round numbers
+     *
+     * @param value
+     * @param places
+     * @return
+     */
+    protected double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+    
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    };
 
 
 
@@ -31,10 +47,12 @@ public class SavingsServiceImpl implements SavingsService {
      */
     @Override
     public List<SavingsDTO> moneyInSavings(double amount, double percent) {
-
+        
         // Create ArrayList to store savings info
         List<SavingsDTO> savingsDTOList = new ArrayList<>();
 
+      
+        
         try {
             double inputAmount = amount, inputPercent = percent;
 
@@ -42,35 +60,55 @@ public class SavingsServiceImpl implements SavingsService {
                 throw new IllegalArgumentException("Amount and percent must be greater than 0");
             }
 
+            
             // Calculation
-            double amountAllocation = amount * (percent / 100);
+            double amountAllocation = (amount * percent) / 100;
+            round(amountAllocation, 2);
+
             double remaining = amount - amountAllocation;
+            round(remaining, 2);
 
             // Retrieve allocated amounts from repository
             Iterable<Savings> previousAllocations = savingsRepository.findAll();
 
             // Sum of previous allocations
-            double totalPreviousAllocations = 0.0;
-            double takenOut = 0.0;
-            double totalTakenOut = 0.0;
+            double totalPreviousAllocations = 0;
+            double takenOut = 0;
+            double totalTakenOut = 0;
             for (Savings savings : previousAllocations) {
-                totalPreviousAllocations += previousAllocations.iterator().next().getAllocatedAmount();
-                takenOut += previousAllocations.iterator().next().getAllocationTakenOut();
-                totalTakenOut += previousAllocations.iterator().next().getTotalAllocationTakenOut();
-            };
+                totalPreviousAllocations += savings.getAllocatedAmount();
+
+                takenOut += savings.getAllocationTakenOut();
+
+                totalTakenOut += savings.getTotalAllocationTakenOut();
+            };      
 
             // Add the allocated amounts
             double newAllocation = totalPreviousAllocations + amountAllocation;
+            round(newAllocation, 2);
             // New savings object to set calculated amounts
             Savings savings = new Savings();
             savings.setInitialAmount(inputAmount);
+            round(inputAmount, 2);
+            
             savings.setPercent(inputPercent);
+            round(inputPercent, 2);
+            
             savings.setAllocatedAmount(amountAllocation);
+            round(amountAllocation, 2);
+            
             savings.setTotalAllocation(newAllocation);
+            round(newAllocation, 2);
+            
             savings.setAllocationTakenOut(takenOut);
+            round(takenOut, 2);
+            
             savings.setTotalAllocationTakenOut(totalTakenOut);
+            round(totalTakenOut, 2);
+            
             // Put savings object into savings repository
             savingsRepository.save(savings);
+            
             // Turn savings model into savingsDTO model
             SavingsDTO savingsDTO = modelMapper.map(savings, SavingsDTO.class);
 
@@ -130,40 +168,41 @@ public class SavingsServiceImpl implements SavingsService {
      */
 
     @Override
-    public List<SavingsDTO> moneyOutOfSavings(double amount, long allocationId) {
+    public List<SavingsDTO> moneyOutOfSavings(double amount) {
         //Create ArrayList to store updated savings
         List<SavingsDTO> savingsUpdateList = new ArrayList<>();
 
         try {
             //Retrieve the allocation from the repository
-            Savings targetAllocation = null;
             Iterable<Savings> moneyInTheSavings = savingsRepository.findAll();
-            allocationId = 0;
-            double totalAllocationTakenOut = 0.0;
             for (Savings savings : moneyInTheSavings) {
-                totalAllocationTakenOut += savings.getAllocationTakenOut();
-                allocationId++;
-                if (savings.getId() == allocationId) {
-                    targetAllocation = savings;
-                }
-            }
-
-            //If the allocation is found, subtract the amount from the allocation and save it to the repository
-            if (targetAllocation != null) {
                 double allocationTakenOutAmount = amount;
-                double newTotalInTheSavings = targetAllocation.getTotalAllocation() - allocationTakenOutAmount;
-                double totalTakenOut = totalAllocationTakenOut + allocationTakenOutAmount;
 
-                targetAllocation.setAllocationTakenOut(allocationTakenOutAmount);
-                targetAllocation.setTotalAllocation(newTotalInTheSavings);
-                targetAllocation.setTotalAllocationTakenOut(totalTakenOut);
+                double newTotalInTheSavings = savings.getTotalAllocation() - allocationTakenOutAmount;
 
-                savingsRepository.save(targetAllocation);
+                double totalTakenOut = allocationTakenOutAmount + savings.getTotalAllocationTakenOut();
 
-                SavingsDTO savingsUpdate = modelMapper.map(targetAllocation, SavingsDTO.class);
-                savingsUpdateList.add(savingsUpdate);
-            } else {
-                System.err.println("Allocation not found");
+                //Update the allocation taken out and total allocation taken out
+                savings.setAllocationTakenOut(allocationTakenOutAmount);
+                round(allocationTakenOutAmount, 2);
+                savings.setTotalAllocation(newTotalInTheSavings);
+                round(newTotalInTheSavings, 2);
+                savings.setTotalAllocationTakenOut(totalTakenOut);
+                round(totalTakenOut, 2);
+
+                //If the total allocation is less than 0, delete the allocation and continue to the next allocation
+                if(savings.getTotalAllocation() < 0){
+                    savingsRepository.delete(savings);
+                    continue;
+                }
+
+                //Save the updated allocation to the repository
+                savingsRepository.save(savings);
+
+                //Turn the updated allocation into a savingsDTO
+                SavingsDTO savingsDTO = modelMapper.map(savings, SavingsDTO.class);
+                savingsUpdateList.add(savingsDTO);
+
             }
 
         } catch (Exception e) {

@@ -3,6 +3,8 @@ package com.financecalculator.financecalculator.services.ServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.*;
 
 import com.financecalculator.financecalculator.dtos.AccountDTO;
@@ -42,6 +44,9 @@ public class AccountServiceImpl implements AccountService {
                 double previousValue = 0.0;
                 double remaining = accountDTO.getRemaining();
                 double difference = remaining - previousValue;
+                BigDecimal bd = new BigDecimal(difference);
+                MathContext m = new MathContext(3);
+                bd.round(m);
                 accountDTO.setRemaining(difference);
                 previousValue = remaining;
             });
