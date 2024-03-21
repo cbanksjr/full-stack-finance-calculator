@@ -14,7 +14,7 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
     const savingsData = { allocationTakenOut };
     try {
       const response = await axios.put(
-        "http://localhost:8080/api/savings/updateSavings/1",
+        "http://localhost:8080/api/savings/updateSavings",
         savingsData
       );
       const data = response.data;

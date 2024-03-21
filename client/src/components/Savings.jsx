@@ -25,7 +25,6 @@ const Savings = ({ showSavings}) => {
         {savings.length >= 1 ? (
           savings.map((element, index) => (
             <div key={element.id || index} className='text-black'>
-              <p>Allocation: ${element.allocatedAmount}</p>
               <p>Total Allocated: ${element.totalAllocation}</p>
               <p>Allocation Taken Out: ${element.allocationTakenOut}</p>
               <p>Total Allocation Taken Out: ${element.totalAllocationTakenOut}</p>
@@ -33,7 +32,6 @@ const Savings = ({ showSavings}) => {
           ))
         ) : (
           <div className='text-black'>
-            <p>Allocation: $0</p>
             <p>Total Allocated: $0</p>
             <p>Allocation Taken Out: $0</p>
             <p>Total Allocation Taken Out: $0</p>

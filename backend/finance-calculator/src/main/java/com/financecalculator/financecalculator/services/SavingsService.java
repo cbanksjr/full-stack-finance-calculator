@@ -9,6 +9,6 @@ public interface SavingsService {
 
     List<SavingsDTO> getAllSavings();
 
-    List<SavingsDTO> moneyOutOfSavings(double amount, long allocationId);
+    List<SavingsDTO> moneyOutOfSavings(double amount);
 
 }
