@@ -11,6 +11,7 @@ import com.financecalculator.financecalculator.models.Account;
 import com.financecalculator.financecalculator.models.Savings;
 import com.financecalculator.financecalculator.repositories.AccountRepository;
 import com.financecalculator.financecalculator.repositories.SavingsRepository;
+import com.financecalculator.financecalculator.services.RoundingService;
 import com.financecalculator.financecalculator.services.SavingsService;
 
 import lombok.AllArgsConstructor;
@@ -21,22 +22,7 @@ public class SavingsServiceImpl implements SavingsService {
     private ModelMapper modelMapper;
     private SavingsRepository savingsRepository;
     private AccountRepository accountRepository;
-
-    /**
-     * BigDecimal to round numbers
-     *
-     * @param value
-     * @param places
-     * @return
-     */
-    protected BigDecimal round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-    
-        BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd;
-    };
-
+    private RoundingService roundingService;
 
 
     /*
@@ -60,9 +46,9 @@ public class SavingsServiceImpl implements SavingsService {
 
             
             // Calculation
-            BigDecimal amountAllocation = round((amount * percent) / 100, 2);
+            BigDecimal amountAllocation = roundingService.round((amount * percent) / 100, 2);
 
-            BigDecimal remaining = round(amount - amountAllocation.doubleValue(),2);
+            BigDecimal remaining = roundingService.round(amount - amountAllocation.doubleValue(),2);
 
             // Retrieve allocated amounts from repository
             Iterable<Savings> previousAllocations = savingsRepository.findAll();
@@ -80,15 +66,15 @@ public class SavingsServiceImpl implements SavingsService {
             };      
 
             // Add the allocated amounts
-            BigDecimal newAllocation = round(totalPreviousAllocations + amountAllocation.doubleValue(), 2);
+            BigDecimal newAllocation = roundingService.round(totalPreviousAllocations + amountAllocation.doubleValue(), 2);
             // New savings object to set calculated amounts
             Savings savings = new Savings();
-            savings.setInitialAmount(round(inputAmount,2).doubleValue());
-            savings.setPercent(round(inputPercent, 2).doubleValue());
-            savings.setAllocatedAmount(round(amountAllocation.doubleValue(), 2).doubleValue());
-            savings.setTotalAllocation(round(newAllocation.doubleValue(), 2).doubleValue());
-            savings.setAllocationTakenOut(round(takenOut, 2).doubleValue());
-            savings.setTotalAllocationTakenOut(round(totalTakenOut, 2).doubleValue());
+            savings.setInitialAmount(roundingService.round(inputAmount,2).doubleValue());
+            savings.setPercent(roundingService.round(inputPercent, 2).doubleValue());
+            savings.setAllocatedAmount(roundingService.round(amountAllocation.doubleValue(), 2).doubleValue());
+            savings.setTotalAllocation(roundingService.round(newAllocation.doubleValue(), 2).doubleValue());
+            savings.setAllocationTakenOut(roundingService.round(takenOut, 2).doubleValue());
+            savings.setTotalAllocationTakenOut(roundingService.round(totalTakenOut, 2).doubleValue());
             
             // Put savings object into savings repository
             savingsRepository.save(savings);
@@ -162,15 +148,15 @@ public class SavingsServiceImpl implements SavingsService {
             //Retrieve the allocation from the repository
             Iterable<Savings> moneyInTheSavings = savingsRepository.findAll();
             for (Savings savings : moneyInTheSavings) {
-                BigDecimal allocationTakenOutAmount = round(amount, 2);
+                BigDecimal allocationTakenOutAmount = roundingService.round(amount, 2);
 
                 if(allocationTakenOutAmount.doubleValue() <= 0){
                     throw new IllegalArgumentException("Amount must be greater than 0");
                 }
 
-                BigDecimal newTotalInTheSavings = round(savings.getTotalAllocation() - allocationTakenOutAmount.doubleValue(),2);
+                BigDecimal newTotalInTheSavings = roundingService.round(savings.getTotalAllocation() - allocationTakenOutAmount.doubleValue(),2);
 
-                BigDecimal totalTakenOut = round(allocationTakenOutAmount.doubleValue() + savings.getTotalAllocationTakenOut(),2);
+                BigDecimal totalTakenOut = roundingService.round(allocationTakenOutAmount.doubleValue() + savings.getTotalAllocationTakenOut(),2);
 
                 //Update the allocation taken out and total allocation taken out
                 savings.setAllocationTakenOut(allocationTakenOutAmount.doubleValue());
