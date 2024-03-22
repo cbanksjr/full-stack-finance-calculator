@@ -164,6 +164,10 @@ public class SavingsServiceImpl implements SavingsService {
             for (Savings savings : moneyInTheSavings) {
                 BigDecimal allocationTakenOutAmount = round(amount, 2);
 
+                if(allocationTakenOutAmount.doubleValue() <= 0){
+                    throw new IllegalArgumentException("Amount must be greater than 0");
+                }
+
                 BigDecimal newTotalInTheSavings = round(savings.getTotalAllocation() - allocationTakenOutAmount.doubleValue(),2);
 
                 BigDecimal totalTakenOut = round(allocationTakenOutAmount.doubleValue() + savings.getTotalAllocationTakenOut(),2);
