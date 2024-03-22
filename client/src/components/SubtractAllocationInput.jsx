@@ -8,6 +8,7 @@ import axios from "axios";
 
 const SubtractAllocationInput = ({ title, showAccount }) => {
   const [allocationTakenOut, setAllocationTakenOut] = useState([]);
+  const [error, setError] = useState("");
 
   const updateSavingsData = async (e) => {
     e.preventDefault();
@@ -19,8 +20,13 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
       );
       const data = response.data;
       setAllocationTakenOut(data);
+      setError("");
     } catch (err) {
       console.error("Error updating savings data: ", err.message);
+      setError(err.message);
+    }
+    if (allocationTakenOut === "" || allocationTakenOut <= 0) {
+      setError("Please enter a valid amount to subtract");
     }
 
     setAllocationTakenOut("");
@@ -37,7 +43,7 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
         <Savings showSavings={updateSavingsData} />
       </div>
 
-      <form className="flex justify-center items-center mt-10 pb-10">
+      <form className="flex justify-center items-center mt-10 pb-6">
         <div className="flex space-x-10">
           <h1 className="text-xl font-semibold pt-10">{title}</h1>
           <input
@@ -53,6 +59,7 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
           />
         </div>
       </form>
+          {error && <p className="text-red-700 font-semibold items-center">{error}</p>}
     </>
   );
 };

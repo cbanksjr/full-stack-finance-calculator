@@ -24,8 +24,10 @@ const Form = () => {
       const dataResponse = response.data;
       setInitialAmount(dataResponse);
       setPercent(dataResponse);
+      setError("");
     } catch (err) {
       console.error("Error posting savings data: ", err.message);
+      setError(err.message);
     }
 
     if (
@@ -39,7 +41,6 @@ const Form = () => {
 
     setInitialAmount("");
     setPercent("");
-    setError("");
   };
 
   return (
