@@ -19,8 +19,6 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
     private ModelMapper modelMapper;
 
-    //GET AMOUNT FROM ALLOCATION OF CHOICE REPOSITORY TO SHOW AMOUNT IN REACT ACCOUNT COMPONENT 
-    
 
     /*
      * Subtracts remainining amounts from account repository
