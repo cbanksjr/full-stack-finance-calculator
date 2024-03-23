@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from "react";
 import SavingsButton from "./SavingsButton";
+import Expense from "./Expense";
 import Savings from "./Savings";
 import Account from "./Account";
 import axios from "axios";
+import ExpenseButton from "./ExpenseButton";
 
 const SubtractAllocationInput = ({ title, showAccount }) => {
   const [allocationTakenOut, setAllocationTakenOut] = useState([]);
@@ -13,27 +15,46 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
   const updateSavingsData = async (e) => {
     e.preventDefault();
     const savingsData = { allocationTakenOut };
-    try {
-      const response = await axios.put(
+      await axios.put(
         "http://localhost:8080/api/savings/updateSavings",
         savingsData
-      );
-      const data = response.data;
-      setAllocationTakenOut(data);
-      setError("");
-    } catch (err) {
-      console.error("Error updating savings data: ", err.message);
-      setError(err.message);
-    }
-    if (allocationTakenOut === "" || allocationTakenOut <= 0) {
-      setError("Please enter a valid amount to subtract");
-    }
+      )
+      .then((response) => {
+        response.savingsData;
+        setAllocationTakenOut(savingsData);
+        setError("");
+      })
+      .catch((err) => {
+        console.error("Error updating savings data: ", err.message);
+        setError(err.message);
+      });
+      if (allocationTakenOut === "" || allocationTakenOut <= 0) {
+        setError("Please enter a valid amount to subtract");
+      }
+  
+      setAllocationTakenOut("");
+    };
 
-    setAllocationTakenOut("");
+  
+
+  const updateExpensesData = async (e) => {
+    e.preventDefault();
+    const expensesData = { allocationTakenOut };
+    await axios.put("http://localhost:8080/api/expenses/updateExpenses", expensesData)
+      .then((response) => {
+        response.expensesData;
+        setAllocationTakenOut(expensesData);
+        setError("");
+      })
+      .catch((err) => {
+        console.error("Error updating expenses data: ", err.message);
+        setError(err.message);
+      }); 
   };
 
   useEffect(() => {
     updateSavingsData();
+    updateExpensesData();
   }, []);
 
   return (
@@ -41,6 +62,7 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
       <div className="flex flex-wrap space-x-6">
         <Account showAccount={() => showAccount} />
         <Savings showSavings={updateSavingsData} />
+        <Expense showExpenses={updateExpensesData} />
       </div>
 
       <form className="flex justify-center items-center mt-10 pb-6">
@@ -57,11 +79,12 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
             name="Update Savings"
             updateSavings={updateSavingsData}
           />
+          <ExpenseButton name="Update Expenses" updateExpenses={updateExpensesData} />
         </div>
       </form>
           {error && <p className="text-red-700 font-semibold items-center">{error}</p>}
     </>
   );
-};
+  };
 
 export default SubtractAllocationInput;

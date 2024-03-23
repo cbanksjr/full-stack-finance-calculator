@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const Savings = ({ showSavings}) => {
+const Savings = ({ showSavings }) => {
   const [savings, setSavings] = useState([]);
 
   const fetchSavingsData = async () => {
-    try {
-      const response = await axios.get('http://localhost:8080/api/savings/getSavings');
-      const data = response.data;
-      setSavings(data);
-    } catch (err) {
-      console.error('Error fetching savings data: ', err.message);
-    }
-  };
+      await axios.get('http://localhost:8080/api/savings/getSavings')
+      .then((response) => {
+        response.data;
+        setSavings(response.data);
+      })
+      .catch((err) => {
+        console.error('Error fetching savings data: ', err.message);
+      });
+    };
+  
 
   useEffect(() => {
     fetchSavingsData();

@@ -1,11 +1,10 @@
 /** @format */
 import Form from "./components/Form.jsx";
-import SubtractAllocationInput from "./components/SubtractAllocationInput.jsx";
 
-const App = ({ showAccount }) => {
+const App = () => {
   return (
-    <main>
-      <div className="flex flex-col items-center bg-gradient-to-tl from-blue-300 to-blue-600 shadow-gray-500">
+    <main className="flex flex-col items-center">
+      <div>
         <Form />
       </div>
     </main>
