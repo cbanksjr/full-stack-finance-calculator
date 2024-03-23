@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.financecalculator.financecalculator.models.Expenses;
 
-public interface ExpensesRespository extends CrudRepository<Expenses, Long>{
+public interface ExpensesRepository extends CrudRepository<Expenses, Long>{
     
 }
