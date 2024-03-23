@@ -1,10 +1,9 @@
 /** @format */
 
 import { useState } from "react";
-import Account from "./Account";
-import Savings from "./Savings";
 import SubtractAllocationInput from "./SubtractAllocationInput";
 import SavingsButton from "./SavingsButton";
+import ExpenseButton from "./ExpenseButton";
 import axios from "axios";
 
 const Form = () => {
@@ -16,19 +15,20 @@ const Form = () => {
   const handleSavingsSubmit = async (e) => {
     e.preventDefault();
     const data = { initialAmount, percent };
-    try {
-      const response = await axios.post(
+        await axios.post(
         "http://localhost:8080/api/savings/allocateToSavings",
         data
-      );
-      const dataResponse = response.data;
-      setInitialAmount(dataResponse);
-      setPercent(dataResponse);
+      )
+      .then((response) => {
+      response.data;
+      setInitialAmount(response.data);
+      setPercent(response.data);
       setError("");
-    } catch (err) {
-      console.error("Error posting savings data: ", err.message);
-      setError(err.message);
-    }
+    })
+    .catch((error) => {
+      console.error("Error posting savings data: ", error.message);
+      setError(error.message);
+    });
 
     if (
       initialAmount === "" ||
@@ -37,7 +37,38 @@ const Form = () => {
       percent <= 0
     ) {
       setError("Please enter a valid amount and percent");
-    }
+    };
+
+    setInitialAmount("");
+    setPercent("");
+  };
+
+  const handleExpensesSubmit = async (e) => {
+    e.preventDefault();
+    const data = { initialAmount, percent };
+    await axios.post(
+      "http://localhost:8080/api/expenses/allocateToExpenses",
+      data
+    )
+    .then((response) => {
+      response.data;
+      setInitialAmount(data);
+      setPercent(data);
+      setError("");
+    })
+    .catch((error) => {
+      console.error("Error posting expenses data: ", error.message);
+      setError(error.message);
+    });
+
+    if (
+      initialAmount === "" ||
+      initialAmount <= 0 ||
+      percent === "" ||
+      percent <= 0
+    ) {
+      setError("Please enter a valid amount and percent");
+    };
 
     setInitialAmount("");
     setPercent("");
@@ -82,6 +113,7 @@ const Form = () => {
 
         <div className="flex space-x-4 pt-2">
           <SavingsButton name="Savings" handleSubmit={handleSavingsSubmit} />
+          <ExpenseButton name="Expenses" handleSubmit={handleExpensesSubmit} />
         </div>
       </form>
       <SubtractAllocationInput title="Subtract from allocation here:" />
