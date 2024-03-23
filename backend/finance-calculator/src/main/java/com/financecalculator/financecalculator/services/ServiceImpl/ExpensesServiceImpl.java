@@ -11,7 +11,7 @@ import com.financecalculator.financecalculator.dtos.ExpensesDTO;
 import com.financecalculator.financecalculator.models.Account;
 import com.financecalculator.financecalculator.models.Expenses;
 import com.financecalculator.financecalculator.repositories.AccountRepository;
-import com.financecalculator.financecalculator.repositories.ExpensesRespository;
+import com.financecalculator.financecalculator.repositories.ExpensesRepository;
 import com.financecalculator.financecalculator.services.ExpensesService;
 import com.financecalculator.financecalculator.services.RoundingService;
 
@@ -22,7 +22,7 @@ import lombok.AllArgsConstructor;
 public class ExpensesServiceImpl implements ExpensesService {
 
     private ModelMapper modelMapper;
-    private ExpensesRespository expensesRepository;
+    private ExpensesRepository expensesRepository;
     private AccountRepository accountRepository;
     private RoundingService roundingService;
 
