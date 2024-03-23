@@ -116,6 +116,8 @@ public class SavingsServiceImpl implements SavingsService {
         try {
             //Retrieve all savings from the repository and save them to allSavingsList
             Iterable<Savings> allSavings = savingsRepository.findAll();
+
+            //Conver savings to savingsDTO
             for (Savings savings : allSavings) {
                 SavingsDTO savingsDTO = modelMapper.map(savings, SavingsDTO.class);
                 allSavingsList.add(savingsDTO);
@@ -136,7 +138,7 @@ public class SavingsServiceImpl implements SavingsService {
 
 
     /*
-     * Finds the amount in the savings and subtract the amount that is input
+     * Finds the amount in the savings and subtract the amount that is inputed
      */
 
     @Override
