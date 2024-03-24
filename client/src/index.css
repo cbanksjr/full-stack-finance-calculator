@@ -11,7 +11,7 @@
   body {
       margin: 0;
       box-sizing: border-box;
-      background: linear-gradient(to right, #0d4be7, #4fc3e9);
+      background: linear-gradient(to right, #4fc3e9, #0d4be7);
       overflow: scroll;
       scroll-behavior: auto;
   }
