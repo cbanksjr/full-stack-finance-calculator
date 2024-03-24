@@ -38,9 +38,9 @@ public class ExpenseController {
     }
 
     @PutMapping("/updateExpenses")
-    public ResponseEntity<List<ExpensesDTO>> expensesUpdate(@RequestBody ExpensesDTO expenses){
+    public ResponseEntity<List<ExpensesDTO>> expensesUpdate(@RequestBody ExpensesDTO expensesDTO){
         try {
-            List<ExpensesDTO> result = expensesService.moneyOutOfExpenses(expenses.getAllocationTakenOut());
+            List<ExpensesDTO> result = expensesService.moneyOutOfExpenses(expensesDTO.getAllocationTakenOut());
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);

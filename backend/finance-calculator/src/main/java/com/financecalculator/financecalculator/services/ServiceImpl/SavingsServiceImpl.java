@@ -117,7 +117,7 @@ public class SavingsServiceImpl implements SavingsService {
             //Retrieve all savings from the repository and save them to allSavingsList
             Iterable<Savings> allSavings = savingsRepository.findAll();
 
-            //Conver savings to savingsDTO
+            //Convert savings to savingsDTO
             for (Savings savings : allSavings) {
                 SavingsDTO savingsDTO = modelMapper.map(savings, SavingsDTO.class);
                 allSavingsList.add(savingsDTO);
