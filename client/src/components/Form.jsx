@@ -78,7 +78,7 @@ const Form = () => {
     <>
       <form
         htmlFor="calculator"
-        className="md:flex flex-col items-center space-y-3 p-12"
+        className="md:flex flex-col items-center space-y-3 p-6"
       >
         <h1 className="text-5xl font-bold mb-6">Finance Calculator</h1>
         <h1 className="text-xl font-semibold mb-4">
@@ -107,11 +107,11 @@ const Form = () => {
 
         {error && <p className="text-red-700 font-semibold pt-4">{error}</p>}
 
-        <h1 className="font-semibold text-xl pt-12">
+        <h1 className="font-semibold text-xl pt-4">
           Select where you would like to allocate your deduction:
         </h1>
 
-        <div className="flex space-x-4 pt-2">
+        <div className="flex space-x-4 p-4">
           <SavingsButton name="Savings" handleSubmit={handleSavingsSubmit} />
           <ExpenseButton name="Expenses" handleSubmit={handleExpensesSubmit} />
         </div>

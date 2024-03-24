@@ -13,43 +13,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.financecalculator.financecalculator.dtos.SavingsDTO;
-import com.financecalculator.financecalculator.services.SavingsService;
-
-
+import com.financecalculator.financecalculator.dtos.VacationDTO;
+import com.financecalculator.financecalculator.services.VacationService;
 
 @RestController
-@RequestMapping("/api/savings")
-public class SavingsController {
+@RequestMapping("/api/vacation")
+public class VacationController {
     
     @Autowired
-    private SavingsService savingsService;
+    private VacationService vacationService;
 
-
-    @PostMapping("/allocateToSavings")
-    public ResponseEntity<List<SavingsDTO>> savingsAllocation(@RequestBody SavingsDTO savingsDTO){
+    @PostMapping("/allocateToVacation")
+    public ResponseEntity<List<VacationDTO>> vacationAllocation(@RequestBody VacationDTO vacationDTO){
         try {
-            List<SavingsDTO> result = savingsService.moneyInSavings(savingsDTO.getInitialAmount(), savingsDTO.getPercent());
+            List<VacationDTO> result = vacationService.moneyForVacation(vacationDTO.getInitialAmount(), vacationDTO.getPercent());
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
         }
     }
 
-    @GetMapping("/getSavings")
-    public ResponseEntity<List<SavingsDTO>> getSavings(){
+    @GetMapping("/getVacation")
+    public ResponseEntity<List<VacationDTO>> getVacation(){
         try {
-            List<SavingsDTO> result = savingsService.getAllSavings();
+            List<VacationDTO> result = vacationService.getAllVacation();
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
         }
     }
-    
-    @PutMapping("/updateSavings")
-    public ResponseEntity<List<SavingsDTO>> savingsUpdate(@RequestBody SavingsDTO savingsDTO){
+
+    @PutMapping("/updateVacation")
+    public ResponseEntity<List<VacationDTO>> vacationUpdate(@RequestBody VacationDTO vacationDTO){
         try {
-            List<SavingsDTO> result = savingsService.moneyOutOfSavings(savingsDTO.getAllocationTakenOut());
+            List<VacationDTO> result = vacationService.moneyOutOfVacation(vacationDTO.getAllocationTakenOut());
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
