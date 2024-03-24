@@ -4,6 +4,7 @@ import { useState } from "react";
 import SubtractAllocationInput from "./SubtractAllocationInput";
 import SavingsButton from "./SavingsButton";
 import ExpenseButton from "./ExpenseButton";
+import VacationButton from "./VacationButton";
 import axios from "axios";
 
 const Form = () => {
@@ -74,6 +75,36 @@ const Form = () => {
     setPercent("");
   };
 
+  const handleVacationSubmit = async (e) => {
+    e.preventDefault();
+    const data = { initialAmount, percent };
+    await axios.post(
+      "http://localhost:8080/api/vacation/allocateToVacation",
+      data
+    )
+    .then((response) => {
+      response.data;
+      setInitialAmount(data);
+      setPercent(data);
+      setError("");
+    })
+    .catch((error) => {
+      console.error("Error posting vacation data: ", error.message);
+      setError(error.message);
+    });
+
+    if (
+      initialAmount === "" ||
+      initialAmount <= 0 ||
+      percent === "" ||
+      percent <= 0
+    ) {
+      setError("Please enter a valid amount and percent");
+    };
+    setInitialAmount("");
+    setPercent("");
+  };
+
   return (
     <>
       <form
@@ -112,8 +143,9 @@ const Form = () => {
         </h1>
 
         <div className="flex space-x-4 p-4">
-          <SavingsButton name="Savings" handleSubmit={handleSavingsSubmit} />
           <ExpenseButton name="Expenses" handleSubmit={handleExpensesSubmit} />
+          <SavingsButton name="Savings" handleSubmit={handleSavingsSubmit} />
+          <VacationButton name="Vacation" handleSubmit={handleVacationSubmit} />
         </div>
       </form>
       <SubtractAllocationInput title="Subtract from allocation here:" />
