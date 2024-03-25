@@ -75,7 +75,7 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
 
   return (
     <>
-      <div className="xl:flex justify-center items-center p-20">
+      <div className="xl:flex justify-center items-center p-10">
         <Account showAccount={() => showAccount} />
         <Expense showExpenses={updateExpensesData} />
         <Savings showSavings={updateSavingsData} />
