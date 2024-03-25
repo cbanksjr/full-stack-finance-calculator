@@ -1,5 +1,3 @@
-# Work In Progress
-
 # Full Stack Finance Calculator
 This is a full stack iteration of a console version of the finance calculator written in Java and a frontend version written in ReactJS.
 This version uses ReactJS, Spring Boot, and PostgreSQL Database. Users can save their allocations to a specific category and see the total allocated to those categories. 
@@ -10,5 +8,6 @@ I created the initial projects to help myself allocate finances for my wife's bu
 
 ## Video of project functionality
 
-https://github.com/cbanksjr/full-stack-finance-calculator/assets/46584614/584bac76-1397-4686-917c-0c4c929dffba
+https://github.com/cbanksjr/full-stack-finance-calculator/assets/46584614/f93c49d0-0ad0-4ff1-885f-e5ae7402762e
+
 
