@@ -21,7 +21,7 @@ const Savings = ({ showSavings }) => {
   }, [showSavings]); 
 
   return (
-    <section className='flex flex-col justify-center'>
+    <section className='mb-3 ml-3'>
       <div className='flex flex-col items-center justify-center font-semibold duration-300 hover:duration-300 bg-purple-600 md:h-44 md:w-80 h-36 w-64 rounded-lg shadow-lg shadow-slate-600 hover:bg-purple-700'>
         <h1 className='md:text-xl font-bold mb-4'>Savings</h1>
         {savings.length >= 1 ? (
