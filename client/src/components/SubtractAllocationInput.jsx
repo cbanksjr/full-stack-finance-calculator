@@ -75,16 +75,16 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
 
   return (
     <>
-      <div className="flex flex-wrap space-x-6 p-4">
+      <div className="flex flex-col items-center space-y-4 mt-5">
         <Account showAccount={() => showAccount} />
         <Expense showExpenses={updateExpensesData} />
         <Savings showSavings={updateSavingsData} />
         <Vacation showVacation={updateVacationData} />
       </div>
 
-      <form className="flex justify-center items-center mt-10 pb-6">
-        <div className="flex space-x-4">
-          <h1 className="text-xl font-semibold pt-10">{title}</h1>
+      <form className="text-center">
+          <h1 className="text-sm md:text-xl font-semibold pt-10">{title}</h1>
+        <div className="xl:flex justify-center items-center space-x-4 mb-10 mt-3">
           <input
             type="number"
             placeholder="Amount"

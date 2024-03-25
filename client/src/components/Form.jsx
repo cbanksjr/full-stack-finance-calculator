@@ -109,13 +109,13 @@ const Form = () => {
     <>
       <form
         htmlFor="calculator"
-        className="md:flex flex-col items-center space-y-3 p-6"
+        className="flex flex-col items-center space-y-3 p-6"
       >
-        <h1 className="text-5xl font-bold mb-6">Finance Calculator</h1>
-        <h1 className="text-xl font-semibold mb-4">
-          Enter your initial amount and percent to deduct from:{" "}
+        <h1 className="text-xl md:text-4xl font-bold mb-4">Finance Calculator</h1>
+        <h1 className="text-sm text-center md:text-xl font-semibold mb-4">
+          Enter an amount & percent to deduct:
         </h1>
-        <label htmlFor="amount" className="text-2xl font-semibold">
+        <label htmlFor="amount" className="md:text-2xl font-semibold">
           Amount:
         </label>
         <input
@@ -123,9 +123,9 @@ const Form = () => {
           placeholder="Amount"
           value={initialAmount}
           onChange={(e) => setInitialAmount(e.target.value)}
-          className="border-4 rounded-md p-2 text-center appearance-none"
+          className="md:border-4 rounded-md p-2 text-center appearance-none"
         />
-        <label htmlFor="percent" className="text-2xl font-semibold">
+        <label htmlFor="percent" className="md:text-2xl font-semibold">
           Percent:
         </label>
         <input
@@ -133,16 +133,16 @@ const Form = () => {
           placeholder="Whole number"
           value={percent}
           onChange={(e) => setPercent(e.target.value)}
-          className="border-4 rounded-md p-2 text-center"
+          className="md:border-4 rounded-md p-2 text-center"
         />
 
         {error && <p className="text-red-700 font-semibold pt-4">{error}</p>}
 
-        <h1 className="font-semibold text-xl pt-4">
-          Select where you would like to allocate your deduction:
+        <h1 className="text-sm text-center md:text-2xl font-semibold pt-4">
+          Select an allocation category:
         </h1>
 
-        <div className="flex space-x-4 p-4">
+        <div className="md:flex md:space-x-4">
           <ExpenseButton name="Expenses" handleSubmit={handleExpensesSubmit} />
           <SavingsButton name="Savings" handleSubmit={handleSavingsSubmit} />
           <VacationButton name="Vacation" handleSubmit={handleVacationSubmit} />

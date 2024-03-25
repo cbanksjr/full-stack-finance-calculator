@@ -21,9 +21,9 @@ const Account = ({showAccount}) => {
   }, [showAccount]);
   
   return (
-    <section className="flex flex-col justify-center">
-      <div className="flex flex-col justify-center items-center font-semibold duration-300 bg-emerald-400 h-44 w-80 rounded-2xl shadow-lg shadow-slate-600 hover:bg-emerald-500 hover:duration-300">
-        <h1 className="text-xl font-bold mb-4">Account</h1>
+    <section>
+      <div className="flex flex-col justify-center items-center font-semibold duration-300 bg-emerald-400 md:h-44 md:w-80 h-36 w-64 rounded-lg shadow-lg shadow-slate-600 hover:bg-emerald-500 hover:duration-300">
+        <h1 className="md:text-xl font-bold mb-4">Account</h1>
         {account.length >= 1 ? account.map((element, index) => (
           <div key={element.id || index} className="text-black">
             <p>Amount: ${element.amount}</p> 
