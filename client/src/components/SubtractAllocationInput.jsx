@@ -14,6 +14,13 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
   const [allocationTakenOut, setAllocationTakenOut] = useState([]);
   const [error, setError] = useState("");
 
+  const invalidSubtractedAmount = () => {
+    return (
+      allocationTakenOut === "" ||
+      (allocationTakenOut <= 0 && "Please enter a valid amount to subtract")
+    );
+  };
+
   const updateSavingsData = async (e) => {
     e.preventDefault();
     const savingsData = { allocationTakenOut };
@@ -28,10 +35,8 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
         console.error("Error updating savings data: ", err.message);
         setError(err.message);
       });
-    if (allocationTakenOut === "" || allocationTakenOut <= 0) {
-      setError("Please enter a valid amount to subtract");
-    }
 
+    setError(invalidSubtractedAmount());
     setAllocationTakenOut("");
   };
 
@@ -49,6 +54,9 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
         console.error("Error updating expenses data: ", err.message);
         setError(err.message);
       });
+
+    setError(invalidSubtractedAmount());
+    setAllocationTakenOut("");
   };
 
   const updateVacationData = async (e) => {
@@ -65,6 +73,9 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
         console.error("Error updating vacation data: ", err.message);
         setError(err.message);
       });
+
+    setError(invalidSubtractedAmount());
+    setAllocationTakenOut("");
   };
 
   useEffect(() => {
@@ -84,6 +95,9 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
 
       <form className="text-center">
         <h1 className="text-sm md:text-xl font-semibold">{title}</h1>
+        {error && (
+          <p className="text-red-700 font-semibold items-center mt-4">{error}</p>
+        )}
         <div className="xl:flex justify-center items-center space-x-4 mb-10 mt-3">
           <input
             type="number"
@@ -97,9 +111,6 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
           <VacationButton name="Vacation" updateVacation={updateVacationData} />
         </div>
       </form>
-      {error && (
-        <p className="text-red-700 font-semibold items-center">{error}</p>
-      )}
     </>
   );
 };
