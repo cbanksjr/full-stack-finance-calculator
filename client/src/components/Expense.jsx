@@ -5,7 +5,7 @@ const Expense = ({ showExpenses }) => {
     const [expense, setExpense] = useState([]);
 
     const fetchExpenseData = async () => {
-        await axios.get('http://localhost:8080/api/expenses/getExpenses')
+        await axios.get(`${process.env.REACT_APP_API_URL}/api/expenses/getExpenses`)
             .then((response) => {
                 response.data;
                 setExpense(response.data);

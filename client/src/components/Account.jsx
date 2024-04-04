@@ -9,7 +9,7 @@ const Account = ({ showAccount }) => {
   const fetchAccountData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/account/updateAmount"
+        `${process.env.REACT_APP_API_URL}/api/account/updateAmount`
       );
       const data = response.data;
       setAccount(data);

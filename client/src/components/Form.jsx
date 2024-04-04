@@ -17,7 +17,7 @@ const Form = () => {
     e.preventDefault();
     const data = { initialAmount, percent };
         await axios.post(
-        "http://localhost:8080/api/savings/allocateToSavings",
+        `${process.env.REACT_APP_API_URL}/api/savings/allocateToSavings`,
         data
       )
       .then((response) => {
@@ -48,7 +48,7 @@ const Form = () => {
     e.preventDefault();
     const data = { initialAmount, percent };
     await axios.post(
-      "http://localhost:8080/api/expenses/allocateToExpenses",
+      `${process.env.REACT_APP_API_URL}/api/expenses/allocateToExpenses`,
       data
     )
     .then((response) => {
@@ -79,7 +79,7 @@ const Form = () => {
     e.preventDefault();
     const data = { initialAmount, percent };
     await axios.post(
-      "http://localhost:8080/api/vacation/allocateToVacation",
+      `${process.env.REACT_APP_API_URL}/api/vacation/allocateToVacation`,
       data
     )
     .then((response) => {

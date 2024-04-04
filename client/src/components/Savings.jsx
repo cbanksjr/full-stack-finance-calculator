@@ -5,7 +5,7 @@ const Savings = ({ showSavings }) => {
   const [savings, setSavings] = useState([]);
 
   const fetchSavingsData = async () => {
-      await axios.get('http://localhost:8080/api/savings/getSavings')
+      await axios.get(`${process.env.REACT_APP_API_URL}/api/savings/getSavings`)
       .then((response) => {
         response.data;
         setSavings(response.data);

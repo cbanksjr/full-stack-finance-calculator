@@ -10,22 +10,19 @@ import Account from "./Account";
 import Vacation from "./Vacation";
 import axios from "axios";
 
+
+
 const SubtractAllocationInput = ({ title, showAccount }) => {
   const [allocationTakenOut, setAllocationTakenOut] = useState([]);
   const [error, setError] = useState("");
 
-  const invalidSubtractedAmount = () => {
-    return (
-      allocationTakenOut === "" ||
-      (allocationTakenOut <= 0 && "Please enter a valid amount to subtract")
-    );
-  };
+  const invalidSubtractedAmount = () => allocationTakenOut === "" || allocationTakenOut <= 0 && "Please enter a valid amount to subtract";
 
   const updateSavingsData = async (e) => {
     e.preventDefault();
     const savingsData = { allocationTakenOut };
     await axios
-      .put("http://localhost:8080/api/savings/updateSavings", savingsData)
+      .put(`${process.env.REACT_APP_API_URL}/api/savings/updateSavings`, savingsData)
       .then((response) => {
         response.savingsData;
         setAllocationTakenOut(savingsData);
@@ -44,7 +41,7 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
     e.preventDefault();
     const expensesData = { allocationTakenOut };
     await axios
-      .put("http://localhost:8080/api/expenses/updateExpenses", expensesData)
+      .put(`${process.env.REACT_APP_API_URL}/api/expenses/updateExpenses`, expensesData)
       .then((response) => {
         response.expensesData;
         setAllocationTakenOut(expensesData);
@@ -63,7 +60,7 @@ const SubtractAllocationInput = ({ title, showAccount }) => {
     e.preventDefault();
     const vacationData = { allocationTakenOut };
     await axios
-      .put("http://localhost:8080/api/vacation/updateVacation", vacationData)
+      .put(`${process.env.REACT_APP_API_URL}/api/vacation/updateVacation`, vacationData)
       .then((response) => {
         response.vacationData;
         setAllocationTakenOut(vacationData);

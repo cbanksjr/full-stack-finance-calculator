@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+
 const Vacation = ({ showVacation }) => {
   const [vacation, setVacation] = useState([]);
 
   const fetchVacationData = async () => {
     await axios
-      .get("http://localhost:8080/api/vacation/getVacation")
+      .get(`${process.env.REACT_APP_API_URL}/api/vacation/getVacation`)
       .then((response) => {
         response.data;
         setVacation(response.data);
