@@ -1,0 +1,1 @@
+web: java -jar target/finance-calculator-1.0.0-SNAPSHOT.jar
