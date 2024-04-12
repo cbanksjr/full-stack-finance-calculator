@@ -65,6 +65,7 @@
 	</dependencies>
 
 	<build>
+	<finalName>finance-calculator</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
