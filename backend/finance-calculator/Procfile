@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar /Users/craigbanksjr/Desktop/projects/full-stack-finance-calculator/backend/finance-calculator/target/finance-calculator.jar
+web: java -Dserver.port=$PORT -jar target/finance-calculator-0.0.1-SNAPSHOT.jar
