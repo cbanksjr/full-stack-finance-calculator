@@ -2,8 +2,8 @@
 *.class
 
 # Build output directories
-/target/
-/build/
+# /target/
+# /build/
 
 # IDE-specific files
 /.idea/
